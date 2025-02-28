@@ -25,35 +25,35 @@ The entire stack is designed to run on **Rancher Desktop on a local Mac**, with 
 ## 🚀 Installation Steps
 
 ### 1️⃣ Start Rancher Desktop (if not running)
-\`\`\`bash
+```bash
 /bin/bash scripts/rancher/start_rancher.sh
-\`\`\`
+```
 
 ### 2️⃣ Install MinIO
-\`\`\`bash
+```bash
 /bin/bash scripts/minio/install_minio.sh
-\`\`\`
+```
 
 ### 3️⃣ Install Prometheus & Thanos
-\`\`\`bash
+```bash
 /bin/bash scripts/prometheus/install_prometheus.sh
 /bin/bash scripts/thanos/install_thanos.sh
-\`\`\`
+```
 
 ### 4️⃣ Install Kafka
-\`\`\`bash
+```bash
 /bin/bash scripts/kafka/install_kafka.sh
-\`\`\`
+```
 
 ### 5️⃣ Install OpenStack (TBD)
-\`\`\`bash
+```bash
 /bin/bash scripts/openstack/install_openstack.sh
-\`\`\`
+```
 
 ### 6️⃣ Deploy Apache Spark Job (TBD)
-\`\`\`bash
+```bash
 /bin/bash scripts/spark/install_spark.sh
-\`\`\`
+```
 
 ---
 
@@ -61,7 +61,7 @@ The entire stack is designed to run on **Rancher Desktop on a local Mac**, with 
 
 To remove all components, run:
 
-\`\`\`bash
+```bash
 /bin/bash scripts/thanos/uninstall_thanos.sh
 /bin/bash scripts/prometheus/uninstall_prometheus.sh
 /bin/bash scripts/minio/uninstall_minio.sh
@@ -69,33 +69,33 @@ To remove all components, run:
 /bin/bash scripts/openstack/uninstall_openstack.sh
 /bin/bash scripts/spark/uninstall_spark.sh
 /bin/bash scripts/rancher/stop_rancher.sh
-\`\`\`
+```
 
 ---
 
 ## 🛠️ Troubleshooting & Verification
 
 ### 🔎 Verify Kafka Brokers
-\`\`\`bash
+```bash
 kubectl get pods -n kafka
 kubectl logs -n kafka -l app.kubernetes.io/name=kafka
-\`\`\`
+```
 
 ### 🔎 Verify Prometheus Logs
-\`\`\`bash
+```bash
 kubectl logs -n monitoring -l app.kubernetes.io/name=prometheus -c prometheus
-\`\`\`
+```
 
 ### 🔎 Verify Thanos Sidecar Logs
-\`\`\`bash
+```bash
 kubectl logs -n monitoring -l app.kubernetes.io/name=prometheus -c thanos-sidecar | grep "uploaded"
-\`\`\`
+```
 
 ### 🔎 Verify MinIO Service
-\`\`\`bash
+```bash
 kubectl get pods -n minio
 kubectl get svc -n minio
-\`\`\`
+```
 
 ---
 
@@ -103,11 +103,11 @@ kubectl get svc -n minio
 
 ### **MinIO**
 - URL: [http://localhost:9001](http://localhost:9001)
-- Default login: \`minio\` / \`minio123\`
+- Default login: `minio` / `minio123`
 
 ### **Grafana**
 - URL: [http://localhost:3000](http://localhost:3000)
-- Default login: \`admin\` / \`prom-operator\`
+- Default login: `admin` / `prom-operator`
 
 ### **Prometheus**
 - URL: [http://localhost:9090](http://localhost:9090)
@@ -119,31 +119,32 @@ kubectl get svc -n minio
 
 ## 📌 To-Do List
 
-1️⃣ **Fix Kafka installation**
-- Resolve authentication issues and ensure brokers are properly registered with the controller.
+1️⃣ **Fix Kafka installation**  
+   - Resolve authentication issues and ensure brokers are properly registered with the controller.  
+   
+2️⃣ **Integrate OpenStack with Prometheus & Kafka**  
+   - Extract Prometheus data and push it into Kafka for real-time processing.  
 
-2️⃣ **Integrate OpenStack with Prometheus & Kafka**
-- Extract Prometheus data and push it into Kafka for real-time processing.
+3️⃣ **Create Apache Spark Streaming Job**  
+   - Use **Spark Structured Streaming** to consume Kafka data and write it to MinIO in **Hudi format**.  
 
-3️⃣ **Create Apache Spark Streaming Job**
-- Use **Spark Structured Streaming** to consume Kafka data and write it to MinIO in **Hudi format**.
+4️⃣ **Phase-based Deployment Strategy**  
+   - Since the system runs on a local Mac with limited capacity, implement **phased execution** to avoid overloading resources.  
 
-4️⃣ **Phase-based Deployment Strategy**
-- Since the system runs on a local Mac with limited capacity, implement **phased execution** to avoid overloading resources.
-
-5️⃣ **Future Work: Train AI Models**
-- In a separate project, use the structured data from MinIO to train **predictive AI models for AI Ops**.
+5️⃣ **Future Work: Train AI Models**  
+   - In a separate project, use the structured data from MinIO to train **predictive AI models for AI Ops**.
 
 ---
 
 ## 🔄 Project Status & Future Plans
 
 🚨 **Currently on hold**: I am going on paternity leave for **6 weeks**, so this project will be paused.  
-📌 **Next Steps**: After returning, I will focus on fixing Kafka and integrating OpenStack.
+📌 **Next Steps**: After returning, I will focus on fixing Kafka and integrating OpenStack.  
 
-If you’re interested in contributing, feel free to fork the repo or raise an issue!
+If you’re interested in contributing, feel free to fork the repo or raise an issue!  
 
 ---
 
 ## ✅ Conclusion
 This project is evolving into a **real-time AI Ops pipeline**, enabling data-driven scaling decisions. Stay tuned for future updates! 🚀
+
