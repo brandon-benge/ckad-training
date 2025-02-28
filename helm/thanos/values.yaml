@@ -1,0 +1,29 @@
+query:
+  replicaCount: 1
+  service:
+    ports:
+      http: 9090
+  stores:  # ✅ Ensure Thanos can connect to Prometheus
+    - prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:10901
+
+storegateway:
+  enabled: true
+  persistence:
+    enabled: true
+    size: 8Gi
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+
+compactor:
+  enabled: true
+  persistence:
+    enabled: true
+    size: 8Gi
+
+# Reference the existing Thanos object store secret
+existingObjstoreSecret: "thanos-objstore-secret"

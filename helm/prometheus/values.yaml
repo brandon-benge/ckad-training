@@ -1,0 +1,51 @@
+prometheus:
+  enabled: true
+  service:
+    enabled: true
+  prometheusSpec:
+    retention: 3d  # Adjust based on your storage capacity
+    enableAdminAPI: true
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 50Gi  # Increase storage size
+    thanos:
+      objectStorageConfig:
+        existingSecret:
+          name: thanos-objstore-secret
+          key: objstore.yml
+
+grafana:
+  enabled: true
+  service:
+    type: LoadBalancer  # Change to NodePort if necessary
+
+alertmanager:
+  enabled: true
+  service:
+    type: ClusterIP
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
+
+thanos:
+  query:
+    enabled: true
+    service:
+      type: ClusterIP
+  storegateway:
+    enabled: true
+    persistence:
+      enabled: true
+      size: 10Gi
+  compactor:
+    enabled: true
+    persistence:
+      enabled: true
+      size: 10Gi

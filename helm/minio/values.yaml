@@ -1,0 +1,10 @@
+auth:
+  rootUser: minio
+  rootPassword: minio123
+service:
+  ports:
+    api: 9000
+    console: 9001
+persistence:
+  enabled: true
+  size: 8Gi

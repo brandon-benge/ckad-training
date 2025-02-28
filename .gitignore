@@ -1,0 +1,4 @@
+/.port_forward_pid
+/.prometheus_port_forward_pid
+/.thanos_port_forward_pid
+/.minio_port_forward_pid
